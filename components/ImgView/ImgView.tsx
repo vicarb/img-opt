@@ -14,25 +14,22 @@ export default function ImgView() {
   return (
     <div className="grid grid-cols-4 gap-4">
       {products.map(product => (
-        <div key={product.id}>
+        <div key={product.id} className="relative h-[33vh]">
           <Image
             src={product.mainImage}
             alt={product.name}
-            width={500}
-            height={500}
-            layout="responsive"
-            className="object-cover h-[33vh]"
+            layout="fill"
+            objectFit="cover"
           />
           {product.extraImages.map((image, index) => (
-            <Image
-              key={index}
-              src={image}
-              alt={`${product.name} extra image`}
-              width={500}
-              height={500}
-              layout="responsive"
-              className="object-cover h-[33vh]"
-            />
+            <div key={index} className="relative h-[33vh]">
+              <Image
+                src={image}
+                alt={`${product.name} extra image`}
+                layout="fill"
+                objectFit="cover"
+              />
+            </div>
           ))}
         </div>
       ))}
