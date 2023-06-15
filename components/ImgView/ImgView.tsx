@@ -28,44 +28,46 @@ const ImageCard = ({ src, alt }) => {
     >
       <Image src={src} alt={alt} layout="fill" objectFit="cover" />
       <Modal
-        isOpen={modalIsOpen}
-        onRequestClose={closeModal}
-        contentLabel="Image Modal"
-        style={{
-          overlay: {
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-          },
-          content: {
-            position: 'relative',
-            inset: 'auto',
-            width: '80%',
-            height: '80%',
-          },
-        }}
-      >
-      <button
-      style={{
-        position: 'absolute',
-        top: '10px',
-        right: '10px',
-        background: 'none',
-        border: 'none',
-        fontSize: '2rem',
-        color: '#000',
-        cursor: 'pointer',
-        zIndex: 10,
-      }}
-      onClick={(event) => {
-        event.stopPropagation();
-        closeModal();
-      }}
-    >
-      ×
-    </button>
-        <Image src={src} alt={alt} layout="responsive" width={1000} height={1000} />
-      </Modal>
+  isOpen={modalIsOpen}
+  onRequestClose={closeModal}
+  contentLabel="Image Modal"
+  style={{
+    overlay: {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    content: {
+      position: 'relative',
+      inset: 'auto',
+      width: '80%',
+      height: '80%',
+      overflow: 'hidden', // prevent scrolling
+    },
+  }}
+>
+  <button
+    style={{
+      position: 'absolute',
+      top: '10px',
+      right: '10px',
+      background: 'none',
+      border: 'none',
+      fontSize: '2rem',
+      color: '#000',
+      cursor: 'pointer',
+      zIndex: 10,
+    }}
+    onClick={(event) => {
+      event.stopPropagation();
+      closeModal();
+    }}
+  >
+    ×
+  </button>
+  <Image src={src} alt={alt} layout="fill" objectFit="contain" />
+</Modal>
+
     </animated.div>
   );
 };
