@@ -4,7 +4,18 @@ import Image from 'next/image';
 import { useSpring, animated } from '@react-spring/web';
 import Modal from 'react-modal';
 
-const ImageCard = ({ src, alt }) => {
+type ImageCardProps = {
+  src: string;
+  alt: string;
+};
+type Product = {
+  id: string;
+  mainImage: string;
+  name: string;
+  extraImages: string[];
+};
+
+const ImageCard: React.FC<ImageCardProps> = ({ src, alt }) => {
   const [springProps, setSpringProps] = useSpring(() => ({
     scale: 1,
     config: { mass: 5, tension: 350, friction: 40 },
@@ -73,7 +84,7 @@ const ImageCard = ({ src, alt }) => {
 };
 
 export default function ImgView() {
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState<Product[]>([]);
 
   useEffect(() => {
     fetch('https://composterasur.cl/products')
@@ -83,7 +94,7 @@ export default function ImgView() {
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-      {products.map((product) => (
+      {products.map((product: Product) => (
         <>
           <ImageCard key={product.id} src={product.mainImage} alt={product.name} />
           {product.extraImages.map((image, index) => (
