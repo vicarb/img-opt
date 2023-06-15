@@ -14,15 +14,17 @@ export default function ImgView() {
   return (
     <div className="grid grid-cols-4 gap-4">
       {products.map(product => (
-        <div key={product.id} className="relative h-[33vh]">
-          <Image
-            src={product.mainImage}
-            alt={product.name}
-            layout="fill"
-            objectFit="cover"
-          />
+        <>
+          <div key={product.id} className="relative h-[33vh] rounded-lg overflow-hidden hover:shadow-lg transition-shadow duration-300 ease-in-out transform hover:scale-105">
+            <Image
+              src={product.mainImage}
+              alt={product.name}
+              layout="fill"
+              objectFit="cover"
+            />
+          </div>
           {product.extraImages.map((image, index) => (
-            <div key={index} className="relative h-[33vh]">
+            <div key={index} className="relative h-[33vh] rounded-lg overflow-hidden hover:shadow-lg transition-shadow duration-300 ease-in-out transform hover:scale-105">
               <Image
                 src={image}
                 alt={`${product.name} extra image`}
@@ -31,7 +33,7 @@ export default function ImgView() {
               />
             </div>
           ))}
-        </div>
+        </>
       ))}
     </div>
   );
