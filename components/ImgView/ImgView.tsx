@@ -2,6 +2,9 @@
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { animated, useSpring } from '@react-spring/web';
+import Modal from 'react-modal';
+
+
 
 const ImageCard = ({ src, alt }) => {
   const [springProps, setSpringProps] = useSpring(() => ({
@@ -9,11 +12,14 @@ const ImageCard = ({ src, alt }) => {
     config: { mass: 5, tension: 350, friction: 40 },
   }));
 
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+
   return (
     <animated.div 
       className="relative h-[33vh] md:h-[50vh] lg:h-[33vh] rounded-lg overflow-hidden" 
       onMouseEnter={() => setSpringProps({ scale: 1.05 })} 
       onMouseLeave={() => setSpringProps({ scale: 1 })}
+      onClick={() => setModalIsOpen(true)}
       style={{
         transform: springProps.scale.to(scale => `scale(${scale})`),
       }}
@@ -24,6 +30,32 @@ const ImageCard = ({ src, alt }) => {
         layout="fill"
         objectFit="cover"
       />
+      <Modal
+        isOpen={modalIsOpen}
+        onRequestClose={() => setModalIsOpen(false)}
+        contentLabel="Image Modal"
+        style={{
+          overlay: {
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          },
+          content: {
+            position: 'relative',
+            inset: 'auto',
+            width: '80%',
+            height: '80%',
+          },
+        }}
+      >
+        <Image
+          src={src}
+          alt={alt}
+          layout="responsive"
+          width={1000}
+          height={1000}
+        />
+      </Modal>
     </animated.div>
   );
 }
