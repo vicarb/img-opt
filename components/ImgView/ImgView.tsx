@@ -17,8 +17,8 @@ type Product = {
 
 const ImageCard: React.FC<ImageCardProps> = ({ src, alt }) => {
   const [springProps, setSpringProps] = useSpring(() => ({
-    scale: 1,
-    config: { mass: 5, tension: 350, friction: 40 },
+    opacity: 0.7,
+    config: { duration: 250 },
   }));
 
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -30,55 +30,54 @@ const ImageCard: React.FC<ImageCardProps> = ({ src, alt }) => {
   return (
     <animated.div
       className="relative h-[33vh] md:h-[50vh] lg:h-[33vh] rounded-lg overflow-hidden"
-      onMouseEnter={() => setSpringProps({ scale: 1.05 })}
-      onMouseLeave={() => setSpringProps({ scale: 1 })}
+      onMouseEnter={() => setSpringProps({ opacity: 1.0 })}
+      onMouseLeave={() => setSpringProps({ opacity: 0.7 })}
       onClick={() => setModalIsOpen(true)}
       style={{
-        transform: springProps.scale.to((scale) => `scale(${scale})`),
+        opacity: springProps.opacity,
       }}
     >
       <Image src={src} alt={alt} layout="fill" objectFit="cover" />
       <Modal
-  isOpen={modalIsOpen}
-  onRequestClose={closeModal}
-  contentLabel="Image Modal"
-  style={{
-    overlay: {
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-    content: {
-      position: 'relative',
-      inset: 'auto',
-      width: '80%',
-      height: '80%',
-      overflow: 'hidden', // prevent scrolling
-    },
-  }}
->
-  <button
-    style={{
-      position: 'absolute',
-      top: '10px',
-      right: '10px',
-      background: 'none',
-      border: 'none',
-      fontSize: '2rem',
-      color: '#000',
-      cursor: 'pointer',
-      zIndex: 10,
-    }}
-    onClick={(event) => {
-      event.stopPropagation();
-      closeModal();
-    }}
-  >
-    ×
-  </button>
-  <Image src={src} alt={alt} layout="fill" objectFit="contain" />
-</Modal>
-
+        isOpen={modalIsOpen}
+        onRequestClose={closeModal}
+        contentLabel="Image Modal"
+        style={{
+          overlay: {
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          },
+          content: {
+            position: 'relative',
+            inset: 'auto',
+            width: '80%',
+            height: '80%',
+            overflow: 'hidden', // prevent scrolling
+          },
+        }}
+      >
+        <button
+          style={{
+            position: 'absolute',
+            top: '10px',
+            right: '10px',
+            background: 'none',
+            border: 'none',
+            fontSize: '2rem',
+            color: '#000',
+            cursor: 'pointer',
+            zIndex: 10,
+          }}
+          onClick={(event) => {
+            event.stopPropagation();
+            closeModal();
+          }}
+        >
+          ×
+        </button>
+        <Image src={src} alt={alt} layout="fill" objectFit="contain" />
+      </Modal>
     </animated.div>
   );
 };
