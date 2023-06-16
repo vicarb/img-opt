@@ -17,7 +17,7 @@ type Product = {
 
 const ImageCard: React.FC<ImageCardProps> = ({ src, alt }) => {
   const [springProps, setSpringProps] = useSpring(() => ({
-    opacity: 0.7,
+    opacity: 0.85,
     config: { duration: 250 },
   }));
 
@@ -31,7 +31,7 @@ const ImageCard: React.FC<ImageCardProps> = ({ src, alt }) => {
     <animated.div
       className="relative h-[33vh] md:h-[50vh] lg:h-[33vh] rounded-lg overflow-hidden"
       onMouseEnter={() => setSpringProps({ opacity: 1.0 })}
-      onMouseLeave={() => setSpringProps({ opacity: 0.7 })}
+      onMouseLeave={() => setSpringProps({ opacity: 0.85 })}
       onClick={() => setModalIsOpen(true)}
       style={{
         opacity: springProps.opacity,
